@@ -112,7 +112,6 @@ GET http://s.web2.qq.com/api/get_self_info2?t=（13位时间戳）
 这里的vfwebqq没有任何作用  
 ~~###获取vfwebqq码    
 GET http://s.web2.qq.com/api/getvfwebqq?ptwebqq=(登陆时获取)&clientid=XXX&psessionid=XXX&t=(13位时间戳)  
-  
 返回示例：  
 {"retcode":0,"result":{"vfwebqq":"5cf2b148005e4a818b9daba310f90bbde6b0549c8b2e246dd318f0bc5dd159a4f67ff385b95b7096"}}    
 （好像登陆的时候已经获取了vfwebqq?)~~  
