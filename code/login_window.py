@@ -22,7 +22,7 @@ class LoginWindow(Gtk.Window):
     #Ifsave button
     __ifsave=0
     #Selection of saved account
-    __selection_number=0
+    __selection_number=1
 
     def __init__(self):
 
@@ -41,7 +41,6 @@ class LoginWindow(Gtk.Window):
         loginbutton_saved=Gtk.Button(label="Login")
         loginbutton_saved.connect("clicked",self.on_login_saved_clicked,self)
         loginbutton_new=Gtk.Button(label="Login")
-        loginbutton_new.connect("clicked",self.on_login_new_clicked,self)
 
         #Stack for content
         stack = Gtk.Stack()
@@ -50,13 +49,23 @@ class LoginWindow(Gtk.Window):
 
         #Saved account login
         saved_account_box= Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        #Need modification
-        button1=Gtk.RadioButton.new_with_label_from_widget(None, "Account 1")
-        button2=Gtk.RadioButton.new_with_label_from_widget(button1, "Account 2")
-        button1.connect("toggled", self.saved_account_toggled, 1,self)
-        button2.connect("toggled", self.saved_account_toggled, 2,self)
-        saved_account_box.pack_start(button1,True,True,0)
-        saved_account_box.pack_start(button2,True,True,0)
+
+        #Display saved account
+        button=[]
+        counter=1
+        for i in self.__account_qqnumber:
+            if counter==1:
+                buttontemp=Gtk.RadioButton.new_with_label_from_widget(None, i)
+                button.append(buttontemp)
+                button[counter-1].connect("toggled",self.saved_account_toggled,counter,self)
+                saved_account_box.pack_start(button[counter-1],True,True,0)
+            else:
+                buttontemp=Gtk.RadioButton.new_with_label_from_widget(button[0], i)
+                button.append(buttontemp)
+                button[counter-1].connect("toggled",self.saved_account_toggled,counter,self)
+                saved_account_box.pack_start(button[counter-1],True,True,0)
+            counter+=1
+        #For login button
         saved_account_grid=Gtk.Grid()
         saved_account_grid.attach(loginbutton_saved,1,0,1,1)
         saved_account_box.pack_start(saved_account_grid,True,True,0)
@@ -86,16 +95,28 @@ class LoginWindow(Gtk.Window):
         vbox.pack_start(stack_switcher, True, True, 0)
         vbox.pack_start(stack, True, True, 0)
 
+        #New account login connect, for entry definition should be placed here
+        loginbutton_new.connect("clicked",self.on_login_new_clicked,self,qqnumber,password)
+
         #For test
         #self.saved_account_test(self)
         #self.write_account_info(self,"1","2")
 
-    #login button click
+    #Login button click
+    #Login button for saved account
     def on_login_saved_clicked(self,button,father):
-        print("1")
+        selection=father.__selection_number
+        #For test
+        #print(selection,father.__account_qqnumber[selection-1],father.__account_encrypted_password[selection-1])
+        father.login(father.__account_qqnumber[selection-1],father.__account_encrypted_password[selection-1])
 
-    def on_login_new_clicked(self,button,father):
-        print("2")
+    #Login button for new account
+    def on_login_new_clicked(self,button,father,qqnumber,password):
+        qid=qqnumber.get_text()
+        pw=password.get_text()
+        if father.__ifsave==1:
+            father.write_account_info(father,qid,pw)
+        father.login(qid,pw)
 
     #Save or not button
     def ifsave_clicked(self,button,father):
@@ -110,20 +131,10 @@ class LoginWindow(Gtk.Window):
         if button.get_active():
             father.__selection_number=name
 
-
-
-    #Login button for new account
-    #def on_clicked_login_new(self,button,father,entry1,entry2)
-
-    #Login button for saved account
-    #def on_clicked_login_saved(self,button,father)
-
-
     #Getting saved account information form file
     def get_saved_account_info(self,father):
         logging.info("Getting saved account info.")
         f=open('accountinfo','r')
-        print f
         count=1
         for line in f:
             if count % 2:
@@ -156,10 +167,8 @@ class LoginWindow(Gtk.Window):
         f.write(password+"\n")
         f.close()
 
-    #Login
-    #def login(self,father):
-
-
+    def login(self,qqnumber,password):
+        return 0
 
 win = LoginWindow()
 win.connect("delete-event", Gtk.main_quit)
