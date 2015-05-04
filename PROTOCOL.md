@@ -109,13 +109,14 @@ rsp = HttpClient_Ist.Post(reqURL, data, Referer)
 GET http://s.web2.qq.com/api/get_self_info2?t=（13位时间戳） 
 返回值先检查retcode,retcode=0则读取消息，消息示例：  
 {"retcode":0,"result":{"birthday":{"month":2,"year":1994,"day":7},"face":567,"phone":"","occupation":"","allow":3,"college":"","uin":2993078122,"blood":0,"constel":1,"lnick":"小黄鸡","vfwebqq":"588dac747352a8546cffc1cef12cac84d335c063392822fab7022fd5c2660f49917b737eff11764b","homepage":"","vip_info":0,"city":"温哥华","country":"加拿大","personal":"","shengxiao":10,"nick":"小黄鸡","email":"","province":"","account":2993078122,"gender":"male","mobile":""}}  
-这里的vfwebqq没有任何作用
-~~###获取vfwebqq码
-GET http://s.web2.qq.com/api/getvfwebqq?ptwebqq=(登陆时获取)&clientid=XXX&psessionid=XXX&t=(13位时间戳)
+这里的vfwebqq没有任何作用  
+~~###获取vfwebqq码    
+GET http://s.web2.qq.com/api/getvfwebqq?ptwebqq=(登陆时获取)&clientid=XXX&psessionid=XXX&t=(13位时间戳)  
+  
 返回示例：  
-{"retcode":0,"result":{"vfwebqq":"5cf2b148005e4a818b9daba310f90bbde6b0549c8b2e246dd318f0bc5dd159a4f67ff385b95b7096"}}  
-（好像登陆的时候已经获取了vfwebqq?)~~
-###获取好友，群，讨论组信息
+{"retcode":0,"result":{"vfwebqq":"5cf2b148005e4a818b9daba310f90bbde6b0549c8b2e246dd318f0bc5dd159a4f67ff385b95b7096"}}    
+（好像登陆的时候已经获取了vfwebqq?)~~  
+###获取好友，群，讨论组信息  
 0. 使用WEBQQ的函数计算hash值（下面是JS代码，需要翻译为PYTHON）：
 ```
 u = function (x, K) {
@@ -143,14 +144,17 @@ hash = u(selfuin,ptwebqq)
 selfuin在上一步的个人信息里  
 ptwebqq在cookie里  
 另外需要vfwebqq,可用上面删除线的方法获取，也可以在登陆时获取  
+  
 1. 好友信息：    
 POST http://s.web2.qq.com/api/get_user_friends2  
 PARAM： r:{"vfwebqq":"XXX","hash":"XXX"}  
-RESPONSE EXAMPLE： {"retcode":0,"result":{"friends":[{"flag":0,"uin":1574737440,"categories":0}],"marknames":[],"categories":[],"vipinfo":[{"vip_level":0,"u":1574737440,"is_vip":0}],"info":[{"face":252,"flag":17334848,"nick":"ZerUniverse","uin":1574737440}]}}  
+RESPONSE EXAMPLE： {"retcode":0,"result":{"friends":[{"flag":0,"uin":1574737440,"categories":0}],"marknames":[],"categories":[],"vipinfo":[{"vip_level":0,"u":1574737440,"is_vip":0}],"info":[{"face":252,"flag":17334848,"nick":"ZerUniverse","uin":1574737440}]}}   
+  
 2. 群信息：  
 POST http://s.web2.qq.com/api/get_group_name_list_mask2  
 PARAM： r:{"vfwebqq":"XXX","hash":"XXX"}  
 RESPONSE EXAMPLE: {"retcode":0,"result":{"gmasklist":[],"gnamelist":[],"gmarklist":[]}}  
+  
 3. 讨论组信息：  
 GET http://s.web2.qq.com/api/get_discus_list  
 PARAM：   
@@ -159,20 +163,19 @@ psessionid=XXX
 vfwebqq=XXX  
 t=13位时间戳  
 RESPONSE:  
-{"retcode":0,"result":{"dnamelist":[{"name":"ZZYTEST、QQ提醒、ZerUniver","did":1664044173}]}}
-
+{"retcode":0,"result":{"dnamelist":[{"name":"ZZYTEST、QQ提醒、ZerUniver","did":1664044173}]}}  
+    
 4. 群成员：  
 GET http://s.web2.qq.com/api/get_group_info_ext2  
 PARAM:  
 gcode={G_UIN}  
 vfwebqq=XXX  
 t=13位时间戳  
-
 RESPONSE：  
 检查retcode=0?  
 从result->minfo里面拉取uin和昵称  
-
-5. 讨论组成员：  
+  
+5. 讨论组成员：   
 GET http://d.web2.qq.com/channel/get_discu_info  
 PARAM:  
 did={discussion group id}  
@@ -180,7 +183,7 @@ vfwebqq=XXX
 clientid=XXX  
 psessionid=XXX  
 t=13位时间戳  
-
+  
 6. 通过UIN获取QQ号（webqq中用uin来指定对象）：  
 GET http://s.web2.qq.com/api/get_friend_uin2?tuin={0}&type=1&vfwebqq={1}  
 参数0填对方uin,参数1填vfwebqq  
