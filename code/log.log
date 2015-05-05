@@ -68,3 +68,15 @@ Mon, 04 May 2015 20:55:34  login_window.py[line:159] INFO Saving new account inf
 Mon, 04 May 2015 20:57:29  login_window.py[line:29] INFO Initializing login interface.
 Mon, 04 May 2015 20:57:29  login_window.py[line:136] INFO Getting saved account info.
 Mon, 04 May 2015 20:57:38  login_window.py[line:161] INFO Saving new account information.
+Tue, 05 May 2015 12:46:56  test.py[line:29] INFO Initializing login interface.
+Tue, 05 May 2015 12:46:56  test.py[line:136] INFO Getting saved account info.
+Tue, 05 May 2015 12:47:07  test.py[line:161] INFO Saving new account information.
+Tue, 05 May 2015 12:47:08  test.py[line:161] INFO Saving new account information.
+Tue, 05 May 2015 12:47:08  test.py[line:161] INFO Saving new account information.
+Tue, 05 May 2015 12:47:22  test.py[line:29] INFO Initializing login interface.
+Tue, 05 May 2015 12:47:22  test.py[line:136] INFO Getting saved account info.
+Tue, 05 May 2015 12:47:42  test.py[line:29] INFO Initializing login interface.
+Tue, 05 May 2015 12:47:42  test.py[line:136] INFO Getting saved account info.
+Tue, 05 May 2015 12:47:45  test.py[line:161] INFO Saving new account information.
+Tue, 05 May 2015 12:47:52  test.py[line:29] INFO Initializing login interface.
+Tue, 05 May 2015 12:47:52  test.py[line:136] INFO Getting saved account info.
